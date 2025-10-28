@@ -1,0 +1,19 @@
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 36
+    namespace 'com.takisoft.fix.colorpicker'
+
+    defaultConfig {
+        minSdkVersion 23
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'lib/src/main/AndroidManifest.xml'
+            java.srcDirs = ['lib/src/main/java']
+            res.srcDirs = ['lib/src/main/res']
+        }
+    }
+}

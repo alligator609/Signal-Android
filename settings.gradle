@@ -4,6 +4,7 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
     }
     plugins {
@@ -15,6 +16,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
         maven { url "https://raw.github.com/signalapp/maven/master/preferencefragment/releases/" }
         maven { url "https://raw.github.com/signalapp/maven/master/smil/releases/" }
         maven { url "https://raw.github.com/signalapp/maven/master/photoview/releases/" }
@@ -25,4 +27,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "signal-android" // Change this
-include ':app'
+include ':app', ':libs:time-duration-picker', ':libs:TextDrawable', ':libs:ColorPicker', ':libs:NumberPickerView'

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NumberPickerView">
+        <attr name="npv_ShownCount" format="integer" />
+        <attr name="npv_MinValue" format="integer" />
+        <attr name="npv_MaxValue" format="integer" />
+        <attr name="npv_Value" format="integer" />
+        <attr name="npv_WrapSelectorWheel" format="boolean" />
+        <attr name="npv_TextSizeNormal" format="dimension" />
+        <attr name="npv_TextSizeSelected" format="dimension" />
+        <attr name="npv_TextColorNormal" format="color" />
+        <attr name="npv_TextColorSelected" format="color" />
+        <attr name="npv_TextColorHint" format="color" />
+        <attr name="npv_DividerColor" format="color" />
+        <attr name="npv_ItemPaddingVertical" format="dimension" />
+        <attr name="npv_ItemPaddingHorizontal" format="dimension" />
+        <!-- Add others if used: npv_ShowDivider, npv_DividerHeight, etc. -->
+    </declare-styleable>
+</resources>

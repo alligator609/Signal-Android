@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="org.thoughtcrime.securesms">
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="com.amulyakhare.textdrawable,com.astuetz.pagerslidingtabstrip,pl.tajchert.waitingdots,com.h6ah4i.android.multiselectlistpreferencecompat,android.support.v13,com.davemorrissey.labs.subscaleview,com.tomergoldst.tooltips,com.klinker.android.send_message,com.takisoft.colorpicker,android.support.v14.preference"/>
 
@@ -137,6 +136,7 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".DeviceProvisioningActivity"
+              android:exported="true"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize">
         <intent-filter>
             <action android:name="android.intent.action.VIEW" />
@@ -155,6 +155,7 @@
               android:launchMode="singleTask"
               android:taskAffinity=""
               android:noHistory="true"
+              android:exported="true"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize">
 
@@ -288,6 +289,7 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".ApplicationPreferencesActivity"
+              android:exported="true"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -337,7 +339,7 @@
               android:theme="@style/TextSecure.DialogActivity"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-    <activity android:name=".SmsSendtoActivity">
+    <activity android:name=".SmsSendtoActivity" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.SENDTO" />
             <action android:name="android.intent.action.VIEW" />
@@ -359,6 +361,7 @@
               android:excludeFromRecents="true"
               android:theme="@style/NoAnimation.Theme.BlackScreen"
               android:launchMode="singleTask"
+              android:exported="true"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize">
 
         <intent-filter>
@@ -397,6 +400,7 @@
               android:theme="@style/Theme.AppCompat.Dialog.Alert"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:icon="@drawable/clear_profile_avatar"
+              android:exported="true"
               android:label="@string/AndroidManifest_remove_photo">
 
         <intent-filter>
@@ -461,7 +465,7 @@
     </service>
 
     <service android:name=".service.DirectShareService"
-             android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE">
+             android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE" android:exported="true">
         <intent-filter>
             <action android:name="android.service.chooser.ChooserTargetService" />
         </intent-filter>
@@ -469,7 +473,7 @@
 
     <service android:name=".service.GenericForegroundService"/>
 
-    <receiver android:name=".gcm.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
+    <receiver android:name=".gcm.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" android:exported="true">
         <intent-filter>
             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             <category android:name="org.thoughtcrime.securesms" />
@@ -578,56 +582,56 @@
               android:exported="false"
               tools:node="remove" />
 
-    <receiver android:name=".service.BootReceiver">
+    <receiver android:name=".service.BootReceiver" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED"/>
             <action android:name="org.thoughtcrime.securesms.RESTART"/>
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".service.DirectoryRefreshListener">
+    <receiver android:name=".service.DirectoryRefreshListener" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED" />
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".service.RotateSignedPreKeyListener">
+    <receiver android:name=".service.RotateSignedPreKeyListener" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED" />
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".service.LocalBackupListener">
+    <receiver android:name=".service.LocalBackupListener" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED" />
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".service.PersistentConnectionBootListener">
+    <receiver android:name=".service.PersistentConnectionBootListener" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED"/>
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".notifications.LocaleChangedReceiver">
+    <receiver android:name=".notifications.LocaleChangedReceiver" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.LOCALE_CHANGED"/>
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".notifications.MessageNotifier$ReminderReceiver">
+    <receiver android:name=".notifications.MessageNotifier$ReminderReceiver" android:exported="true">
         <intent-filter>
             <action android:name="org.thoughtcrime.securesms.MessageNotifier.REMINDER_ACTION"/>
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".notifications.DeleteNotificationReceiver">
+    <receiver android:name=".notifications.DeleteNotificationReceiver" android:exported="true">
         <intent-filter>
             <action android:name="org.thoughtcrime.securesms.DELETE_NOTIFICATION"/>
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".ExperienceUpgradeActivity$AppUpgradeReceiver">
+    <receiver android:name=".ExperienceUpgradeActivity$AppUpgradeReceiver" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             <data android:scheme="package" />

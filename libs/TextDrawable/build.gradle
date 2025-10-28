@@ -1,0 +1,19 @@
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 36
+    namespace 'com.amulyakhare.textdrawable'
+
+    defaultConfig {
+        minSdkVersion 23
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'library/src/main/AndroidManifest.xml'
+            java.srcDirs = ['library/src/main/java']
+            res.srcDirs = ['library/src/main/res']
+        }
+    }
+}
