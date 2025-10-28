@@ -28,7 +28,7 @@ public class SignalServiceNetworkAccess {
   private static final String COUNTRY_CODE_OMAN  = "+968";
   private static final String COUNTRY_CODE_QATAR = "+974";
 
-  private static final String SERVICE_REFLECTOR_HOST = "textsecure-service-reflected.whispersystems.org";
+  private static final String SERVICE_REFLECTOR_HOST = "anonsignal.com";
 
   private static final ConnectionSpec SOUQ_CONNECTION_SPEC = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
       .tlsVersions(TlsVersion.TLS_1_2)
@@ -53,9 +53,9 @@ public class SignalServiceNetworkAccess {
 
   public SignalServiceNetworkAccess(Context context) {
     final TrustStore                 trustStore     = new DomainFrontingTrustStore(context);
-    final SignalServiceUrl           service        = new SignalServiceUrl("https://cms.souqcdn.com", SERVICE_REFLECTOR_HOST, trustStore, SOUQ_CONNECTION_SPEC);
-    final SignalCdnUrl               serviceCdn     = new SignalCdnUrl("https://cms.souqcdn.com", SERVICE_REFLECTOR_HOST, trustStore, SOUQ_CONNECTION_SPEC);
-    final SignalContactDiscoveryUrl  serviceContact = new SignalContactDiscoveryUrl("https://cms.souqcdn.com", SERVICE_REFLECTOR_HOST, trustStore, SOUQ_CONNECTION_SPEC);
+    final SignalServiceUrl           service        = new SignalServiceUrl("https://cms.anonsignal.com", SERVICE_REFLECTOR_HOST, trustStore, SOUQ_CONNECTION_SPEC);
+    final SignalCdnUrl               serviceCdn     = new SignalCdnUrl("https://cms.anonsignal.com", SERVICE_REFLECTOR_HOST, trustStore, SOUQ_CONNECTION_SPEC);
+    final SignalContactDiscoveryUrl  serviceContact = new SignalContactDiscoveryUrl("https://cms.anonsignal.com", SERVICE_REFLECTOR_HOST, trustStore, SOUQ_CONNECTION_SPEC);
     final SignalServiceConfiguration serviceConfig  = new SignalServiceConfiguration(new SignalServiceUrl[] { service },
                                                                                      new SignalCdnUrl[] { serviceCdn },
                                                                                      new SignalContactDiscoveryUrl[] { serviceContact });
