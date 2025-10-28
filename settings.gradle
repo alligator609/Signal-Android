@@ -1,0 +1,28 @@
+// file: settings.gradle
+
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    plugins {
+        id 'com.android.application' version '8.1.4' apply false
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://raw.github.com/signalapp/maven/master/preferencefragment/releases/" }
+        maven { url "https://raw.github.com/signalapp/maven/master/smil/releases/" }
+        maven { url "https://raw.github.com/signalapp/maven/master/photoview/releases/" }
+        maven { url "https://raw.github.com/signalapp/maven/master/shortcutbadger/releases/" }
+        maven { url "https://raw.github.com/signalapp/maven/master/circular-progress-button/releases/" }
+        maven { url "https://raw.github.com/signalapp/maven/master/sqlcipher/release/" }
+        mavenLocal()
+    }
+}
+rootProject.name = "signal-android" // Change this
+include ':app'
