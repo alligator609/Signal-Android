@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
 import org.thoughtcrime.securesms.R;
@@ -15,7 +17,6 @@ import org.thoughtcrime.securesms.TransportOption;
 import org.thoughtcrime.securesms.components.GlideDrawableListeningTarget;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.providers.MemoryBlobProvider;
 import org.thoughtcrime.securesms.providers.PersistentBlobProvider;
 import org.thoughtcrime.securesms.scribbles.ScribbleFragment;
@@ -121,7 +122,7 @@ public class CameraActivity extends PassphraseRequiredActionBarActivity implemen
     Log.i(TAG, "Fast image stored: " + captureUri.toString());
 
     SettableFuture<Boolean> result = new SettableFuture<>();
-    GlideApp.with(this).load(new DecryptableStreamUriLoader.DecryptableUri(captureUri)).into(new GlideDrawableListeningTarget(snapshot, result));
+    Glide.with(this).load(new DecryptableStreamUriLoader.DecryptableUri(captureUri)).into(new GlideDrawableListeningTarget(snapshot, result));
     result.addListener(new AssertedSuccessListener<Boolean>() {
       @Override
       public void onSuccess(Boolean result) {

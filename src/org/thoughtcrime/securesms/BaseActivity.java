@@ -1,30 +1,42 @@
 package org.thoughtcrime.securesms;
 
 import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.view.KeyEvent;
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+
+import org.thoughtcrime.securesms.util.DynamicLanguage;
+import org.thoughtcrime.securesms.util.DynamicTheme;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
+
 
 public abstract class BaseActivity extends FragmentActivity {
+
+  private final DynamicTheme    dynamicTheme    = new DynamicTheme();
+  private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
+
   @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
-    return (keyCode == KeyEvent.KEYCODE_MENU && isMenuWorkaroundRequired()) || super.onKeyDown(keyCode, event);
+  protected void onCreate(Bundle savedInstanceState) {
+    dynamicTheme.onCreate(this);
+    dynamicLanguage.onCreate(this);
+    super.onCreate(savedInstanceState);
   }
 
   @Override
-  public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
-    if (keyCode == KeyEvent.KEYCODE_MENU && isMenuWorkaroundRequired()) {
-      openOptionsMenu();
-      return true;
-    }
-    return super.onKeyUp(keyCode, event);
+  protected void onResume() {
+    super.onResume();
+    dynamicTheme.onResume(this);
+    dynamicLanguage.onResume(this);
+    TextSecurePreferences.setAppLastActiveTime(this);
   }
 
   public static boolean isMenuWorkaroundRequired() {
-    return VERSION.SDK_INT < VERSION_CODES.KITKAT          &&
-           VERSION.SDK_INT > VERSION_CODES.GINGERBREAD_MR1 &&
-           ("LGE".equalsIgnoreCase(Build.MANUFACTURER) || "E6710".equalsIgnoreCase(Build.DEVICE));
+    return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT &&
+           Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1;
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
 }

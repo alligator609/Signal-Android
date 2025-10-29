@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.search.model;
 
 import android.database.ContentObserver;
 import android.database.DataSetObserver;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.database.CursorList;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;

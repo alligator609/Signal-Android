@@ -9,7 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import org.thoughtcrime.securesms.logging.Log;
 

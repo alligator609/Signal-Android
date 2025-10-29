@@ -4,16 +4,17 @@ package org.thoughtcrime.securesms.components;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 
+import com.bumptech.glide.RequestManager;
+
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.util.views.Stub;
 import org.thoughtcrime.securesms.video.VideoPlayer;
@@ -53,7 +54,7 @@ public class MediaView extends FrameLayout {
     this.videoView = new Stub<>(findViewById(R.id.video_player_stub));
   }
 
-  public void set(@NonNull GlideRequests glideRequests,
+  public void set(@NonNull RequestManager glideRequests,
                   @NonNull Window window,
                   @NonNull Uri source,
                   @NonNull String mediaType,
@@ -64,7 +65,7 @@ public class MediaView extends FrameLayout {
     if (mediaType.startsWith("image/")) {
       imageView.setVisibility(View.VISIBLE);
       if (videoView.resolved()) videoView.get().setVisibility(View.GONE);
-      imageView.setImageUri(glideRequests, source, mediaType);
+      imageView.setImageUri(glideRequests, source, mediaType, size);
     } else if (mediaType.startsWith("video/")) {
       imageView.setVisibility(View.GONE);
       videoView.get().setVisibility(View.VISIBLE);

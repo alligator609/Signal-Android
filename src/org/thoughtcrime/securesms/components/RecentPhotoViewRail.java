@@ -6,13 +6,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.MediaStoreSignature;
@@ -27,7 +28,6 @@ import com.bumptech.glide.signature.MediaStoreSignature;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.CursorRecyclerViewAdapter;
 import org.thoughtcrime.securesms.database.loaders.RecentPhotosLoader;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
 public class RecentPhotoViewRail extends FrameLayout implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -112,7 +112,7 @@ public class RecentPhotoViewRail extends FrameLayout implements LoaderManager.Lo
 
       Key signature = new MediaStoreSignature(mimeType, dateModified, orientation);
 
-      GlideApp.with(getContext().getApplicationContext())
+      Glide.with(getContext().getApplicationContext())
               .load(uri)
               .signature(signature)
               .diskCacheStrategy(DiskCacheStrategy.NONE)

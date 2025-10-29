@@ -25,14 +25,15 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
@@ -40,7 +41,6 @@ import com.bumptech.glide.request.transition.Transition;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.scribbles.widget.entity.MotionEntity;
 import org.thoughtcrime.securesms.scribbles.widget.entity.TextEntity;
 import org.thoughtcrime.securesms.util.Util;
@@ -83,7 +83,7 @@ public class ScribbleView extends FrameLayout {
     initialize(context);
   }
 
-  public void setImage(@NonNull GlideRequests glideRequests, @NonNull Uri uri) {
+  public void setImage(@NonNull RequestManager glideRequests, @NonNull Uri uri) {
     this.imageUri = uri;
 
     glideRequests.load(new DecryptableUri(uri))
@@ -92,7 +92,7 @@ public class ScribbleView extends FrameLayout {
                  .into(imageView);
   }
 
-  public @NonNull ListenableFuture<Bitmap> getRenderedImage(@NonNull GlideRequests glideRequests) {
+  public @NonNull ListenableFuture<Bitmap> getRenderedImage(@NonNull RequestManager glideRequests) {
     final SettableFuture<Bitmap> future      = new SettableFuture<>();
     final Context                context     = getContext();
     final boolean                isLowMemory = Util.isLowMemory(context);

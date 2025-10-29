@@ -7,19 +7,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
 import org.thoughtcrime.securesms.contacts.avatars.GeneratedContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 
@@ -85,7 +85,7 @@ public class AvatarImageView extends AppCompatImageView {
     super.setOnClickListener(listener);
   }
 
-  public void setAvatar(@NonNull GlideRequests requestManager, @Nullable Recipient recipient, boolean quickContactEnabled) {
+  public void setAvatar(@NonNull RequestManager requestManager, @Nullable Recipient recipient, boolean quickContactEnabled) {
     if (recipient != null) {
       requestManager.load(recipient.getContactPhoto())
                     .fallback(recipient.getFallbackContactPhotoDrawable(getContext(), inverted))
@@ -100,7 +100,7 @@ public class AvatarImageView extends AppCompatImageView {
     }
   }
 
-  public void clear(@NonNull GlideRequests glideRequests) {
+  public void clear(@NonNull RequestManager glideRequests) {
     glideRequests.clear(this);
   }
 

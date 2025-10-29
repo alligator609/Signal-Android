@@ -4,7 +4,7 @@ package org.thoughtcrime.securesms.database.loaders;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.annimon.stream.Stream;

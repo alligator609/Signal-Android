@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.jobs;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.telephony.SmsManager;
 
 import org.thoughtcrime.securesms.jobmanager.SafeData;

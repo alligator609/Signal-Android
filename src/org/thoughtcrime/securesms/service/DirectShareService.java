@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.service.chooser.ChooserTarget;
 import android.service.chooser.ChooserTargetService;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.ShareActivity;

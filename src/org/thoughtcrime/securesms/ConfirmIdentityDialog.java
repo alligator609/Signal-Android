@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -38,7 +38,7 @@ public class ConfirmIdentityDialog extends AlertDialog {
   @SuppressWarnings("unused")
   private static final String TAG = ConfirmIdentityDialog.class.getSimpleName();
 
-  private OnClickListener callback;
+  private DialogInterface.OnClickListener callback;
 
   public ConfirmIdentityDialog(Context context,
                                MessageRecord messageRecord,
@@ -70,11 +70,11 @@ public class ConfirmIdentityDialog extends AlertDialog {
                    .setMovementMethod(LinkMovementMethod.getInstance());
   }
 
-  public void setCallback(OnClickListener callback) {
+  public void setCallback(DialogInterface.OnClickListener callback) {
     this.callback = callback;
   }
 
-  private class AcceptListener implements OnClickListener {
+  private class AcceptListener implements DialogInterface.OnClickListener {
 
     private final MessageRecord       messageRecord;
     private final IdentityKeyMismatch mismatch;
@@ -188,7 +188,7 @@ public class ConfirmIdentityDialog extends AlertDialog {
     }
   }
 
-  private class CancelListener implements OnClickListener {
+  private class CancelListener implements DialogInterface.OnClickListener {
     @Override
     public void onClick(DialogInterface dialog, int which) {
       if (callback != null) callback.onClick(null, 0);

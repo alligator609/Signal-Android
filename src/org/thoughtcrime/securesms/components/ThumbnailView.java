@@ -3,8 +3,8 @@ package org.thoughtcrime.securesms.components;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import android.util.AttributeSet;
 import org.thoughtcrime.securesms.logging.Log;
 import android.view.View;
@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -23,8 +25,6 @@ import com.bumptech.glide.request.RequestOptions;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
-import org.thoughtcrime.securesms.mms.GlideRequest;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideClickListener;
 import org.thoughtcrime.securesms.util.Util;
@@ -222,14 +222,14 @@ public class ThumbnailView extends FrameLayout {
   }
 
   @UiThread
-  public ListenableFuture<Boolean> setImageResource(@NonNull GlideRequests glideRequests, @NonNull Slide slide,
+  public ListenableFuture<Boolean> setImageResource(@NonNull RequestManager glideRequests, @NonNull Slide slide,
                                                     boolean showControls, boolean isPreview)
   {
     return setImageResource(glideRequests, slide, showControls, isPreview, 0, 0);
   }
 
   @UiThread
-  public ListenableFuture<Boolean> setImageResource(@NonNull GlideRequests glideRequests, @NonNull Slide slide,
+  public ListenableFuture<Boolean> setImageResource(@NonNull RequestManager glideRequests, @NonNull Slide slide,
                                                     boolean showControls, boolean isPreview, int naturalWidth,
                                                     int naturalHeight)
   {
@@ -285,7 +285,7 @@ public class ThumbnailView extends FrameLayout {
     return result;
   }
 
-  public ListenableFuture<Boolean> setImageResource(@NonNull GlideRequests glideRequests, @NonNull Uri uri) {
+  public ListenableFuture<Boolean> setImageResource(@NonNull RequestManager glideRequests, @NonNull Uri uri) {
     SettableFuture<Boolean> future = new SettableFuture<>();
 
     if (transferControls.isPresent()) getTransferControls().setVisibility(View.GONE);
@@ -306,8 +306,8 @@ public class ThumbnailView extends FrameLayout {
     this.downloadClickListener = listener;
   }
 
-  public void clear(GlideRequests glideRequests) {
-    glideRequests.clear(image);
+  public void clear(RequestManager glideRequests) {
+    glideRequests.clear(this);
 
     if (transferControls.isPresent()) {
       getTransferControls().clear();
@@ -320,8 +320,8 @@ public class ThumbnailView extends FrameLayout {
     getTransferControls().showProgressSpinner();
   }
 
-  private GlideRequest buildThumbnailGlideRequest(@NonNull GlideRequests glideRequests, @NonNull Slide slide) {
-    GlideRequest request = applySizing(glideRequests.load(new DecryptableUri(slide.getThumbnailUri()))
+  private RequestBuilder buildThumbnailGlideRequest(@NonNull RequestManager glideRequests, @NonNull Slide slide) {
+    RequestBuilder request = applySizing(glideRequests.load(new DecryptableUri(slide.getThumbnailUri()))
                                           .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                           .transition(withCrossFade()), new CenterCrop());
 
@@ -329,13 +329,13 @@ public class ThumbnailView extends FrameLayout {
     else                      return request.apply(RequestOptions.errorOf(R.drawable.ic_missing_thumbnail_picture));
   }
 
-  private RequestBuilder buildPlaceholderGlideRequest(@NonNull GlideRequests glideRequests, @NonNull Slide slide) {
+  private RequestBuilder buildPlaceholderGlideRequest(@NonNull RequestManager glideRequests, @NonNull Slide slide) {
     return applySizing(glideRequests.asBitmap()
                         .load(slide.getPlaceholderRes(getContext().getTheme()))
                         .diskCacheStrategy(DiskCacheStrategy.NONE), new FitCenter());
   }
 
-  private GlideRequest applySizing(@NonNull GlideRequest request, @NonNull BitmapTransformation fitting) {
+  private RequestBuilder applySizing(@NonNull RequestBuilder request, @NonNull BitmapTransformation fitting) {
     int[] size = new int[2];
     fillTargetDimensions(size, dimens, bounds);
     if (size[WIDTH] == 0 && size[HEIGHT] == 0) {

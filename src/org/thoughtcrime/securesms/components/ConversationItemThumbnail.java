@@ -8,15 +8,16 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.RequestManager;
+
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideClickListener;
 import org.thoughtcrime.securesms.util.ThemeUtil;
@@ -146,21 +147,21 @@ public class ConversationItemThumbnail extends FrameLayout {
   }
 
   @UiThread
-  public void setImageResource(@NonNull GlideRequests glideRequests, @NonNull Slide slide,
+  public void setImageResource(@NonNull RequestManager glideRequests, @NonNull Slide slide,
                                boolean showControls, boolean isPreview)
   {
     thumbnail.setImageResource(glideRequests, slide, showControls, isPreview);
   }
 
   @UiThread
-  public void setImageResource(@NonNull GlideRequests glideRequests, @NonNull Slide slide,
+  public void setImageResource(@NonNull RequestManager glideRequests, @NonNull Slide slide,
                                boolean showControls, boolean isPreview, int naturalWidth,
                                int naturalHeight)
   {
     thumbnail.setImageResource(glideRequests, slide, showControls, isPreview, naturalWidth, naturalHeight);
   }
 
-  public void setImageResource(@NonNull GlideRequests glideRequests, @NonNull Uri uri) {
+  public void setImageResource(@NonNull RequestManager glideRequests, @NonNull Uri uri) {
     thumbnail.setImageResource(glideRequests, uri);
   }
 
@@ -172,7 +173,7 @@ public class ConversationItemThumbnail extends FrameLayout {
     thumbnail.setDownloadClickListener(listener);
   }
 
-  public void clear(GlideRequests glideRequests) {
+  public void clear(RequestManager glideRequests) {
     thumbnail.clear(glideRequests);
   }
 

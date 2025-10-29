@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.preferences.widgets;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 
 import com.takisoft.colorpicker.ColorPickerDialog;

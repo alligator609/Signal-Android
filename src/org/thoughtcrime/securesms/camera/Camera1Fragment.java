@@ -10,9 +10,9 @@ import android.graphics.SurfaceTexture;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -26,6 +26,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -34,7 +35,6 @@ import com.bumptech.glide.request.transition.Transition;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -212,7 +212,7 @@ public class Camera1Fragment extends Fragment implements TextureView.SurfaceText
       Transformation<Bitmap> transformation = frontFacing ? new MultiTransformation<>(new CenterCrop(), new FlipTransformation())
                                                           : new CenterCrop();
 
-      GlideApp.with(this)
+      Glide.with(this)
               .asBitmap()
               .load(jpegData)
               .transform(transformation)

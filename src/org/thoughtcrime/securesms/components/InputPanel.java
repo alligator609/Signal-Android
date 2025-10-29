@@ -4,9 +4,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -19,11 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.RequestManager;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.emoji.EmojiDrawer;
 import org.thoughtcrime.securesms.components.emoji.EmojiToggle;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.QuoteModel;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -120,7 +121,7 @@ public class InputPanel extends LinearLayout
     composeText.setMediaListener(listener);
   }
 
-  public void setQuote(@NonNull GlideRequests glideRequests, long id, @NonNull Recipient author, @NonNull String body, @NonNull SlideDeck attachments) {
+  public void setQuote(@NonNull RequestManager glideRequests, long id, @NonNull Recipient author, @NonNull String body, @NonNull SlideDeck attachments) {
     this.quoteView.setQuote(glideRequests, id, author, body, false, attachments);
     this.quoteView.setVisibility(View.VISIBLE);
   }

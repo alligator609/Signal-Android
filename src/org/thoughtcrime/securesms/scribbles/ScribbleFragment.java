@@ -9,19 +9,20 @@ import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.TransportOption;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.providers.PersistentBlobProvider;
 import org.thoughtcrime.securesms.scribbles.viewmodel.Font;
 import org.thoughtcrime.securesms.scribbles.viewmodel.Layer;
@@ -59,7 +60,7 @@ public class ScribbleFragment extends Fragment implements ScribbleHud.EventListe
   private Controller    controller;
   private ScribbleHud   scribbleHud;
   private ScribbleView  scribbleView;
-  private GlideRequests glideRequests;
+  private RequestManager glideRequests;
 
   public static ScribbleFragment newInstance(@NonNull Uri imageUri, @NonNull Locale locale, Optional<TransportOption> transport) {
     Bundle args = new Bundle();
@@ -91,7 +92,7 @@ public class ScribbleFragment extends Fragment implements ScribbleHud.EventListe
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    this.glideRequests = GlideApp.with(this);
+    this.glideRequests = Glide.with(this);
     this.scribbleHud   = view.findViewById(R.id.scribble_hud);
     this.scribbleView  = view.findViewById(R.id.scribble_view);
 

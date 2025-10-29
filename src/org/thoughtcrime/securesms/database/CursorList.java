@@ -4,7 +4,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.MatrixCursor;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.Closeable;
 import java.util.Collection;

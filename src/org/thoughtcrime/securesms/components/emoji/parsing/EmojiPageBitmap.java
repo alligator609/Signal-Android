@@ -3,13 +3,13 @@ package org.thoughtcrime.securesms.components.emoji.parsing;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import org.thoughtcrime.securesms.logging.Log;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.thoughtcrime.securesms.components.emoji.EmojiPageModel;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.util.ListenableFutureTask;
 import org.thoughtcrime.securesms.util.Util;
 
@@ -71,13 +71,13 @@ public class EmojiPageBitmap {
     if (bitmapReference != null && bitmapReference.get() != null) return bitmapReference.get();
 
     try {
-      Bitmap originalBitmap = GlideApp.with(context.getApplicationContext())
-                                      .asBitmap()
-                                      .load("file:///android_asset/" + model.getSprite())
-                                      .skipMemoryCache(true)
-                                      .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                      .submit()
-                                      .get();
+      Bitmap originalBitmap = Glide.with(context.getApplicationContext())
+                                   .asBitmap()
+                                   .load("file:///android_asset/" + model.getSprite())
+                                   .skipMemoryCache(true)
+                                   .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                   .submit()
+                                   .get();
 
       Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, (int)(originalBitmap.getWidth() * decodeScale), (int)(originalBitmap.getHeight() * decodeScale), false);
 

@@ -3,21 +3,22 @@ package org.thoughtcrime.securesms.components;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.bumptech.glide.RequestManager;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.CursorRecyclerViewAdapter;
 import org.thoughtcrime.securesms.database.MediaDatabase;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
@@ -54,7 +55,7 @@ public class ThreadPhotoRailView extends FrameLayout {
     }
   }
 
-  public void setCursor(@NonNull GlideRequests glideRequests, @Nullable Cursor cursor) {
+  public void setCursor(@NonNull RequestManager glideRequests, @Nullable Cursor cursor) {
     this.recyclerView.setAdapter(new ThreadPhotoRailAdapter(getContext(), glideRequests, cursor, this.listener));
   }
 
@@ -63,12 +64,12 @@ public class ThreadPhotoRailView extends FrameLayout {
     @SuppressWarnings("unused")
     private static final String TAG = ThreadPhotoRailAdapter.class.getName();
 
-    @NonNull  private final GlideRequests glideRequests;
+    @NonNull  private final RequestManager glideRequests;
 
     @Nullable private OnItemClickedListener clickedListener;
 
     private ThreadPhotoRailAdapter(@NonNull Context context,
-                                   @NonNull GlideRequests glideRequests,
+                                   @NonNull RequestManager glideRequests,
                                    @Nullable Cursor cursor,
                                    @Nullable OnItemClickedListener listener)
     {

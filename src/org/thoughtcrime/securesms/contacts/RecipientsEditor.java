@@ -18,7 +18,7 @@
 package org.thoughtcrime.securesms.contacts;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
+import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 import android.telephony.PhoneNumberUtils;
 import android.text.Annotation;
 import android.text.Editable;
@@ -376,7 +376,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
             int i = 0;
             while (i < len + 1) {
                 char c;
-                if ((i == len) || ((c = sp.charAt(i)) == ',') || (c == ';')) {
+                if ((i == len) || ((c = sp.charAt(i)) == ',' || c == ';')) {
                     if (i > start) {
                         list.add(getNumberAt(sp, start, i, mContext));
 

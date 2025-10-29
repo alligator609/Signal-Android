@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.jobs.requirements;
 
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.jobmanager.dependencies.ContextDependent;
 import org.thoughtcrime.securesms.jobmanager.requirements.Requirement;

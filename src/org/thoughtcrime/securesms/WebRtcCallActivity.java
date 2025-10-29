@@ -26,7 +26,7 @@ import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import org.thoughtcrime.securesms.logging.Log;
 import android.view.View;

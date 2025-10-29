@@ -4,7 +4,7 @@ package org.thoughtcrime.securesms.crypto;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.util.Base64;
 

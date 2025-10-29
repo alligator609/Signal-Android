@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.support.v7.content.res.AppCompatResources;
 import android.widget.ImageView;
 

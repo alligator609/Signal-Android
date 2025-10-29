@@ -32,7 +32,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
