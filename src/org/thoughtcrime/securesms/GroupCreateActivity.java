@@ -56,7 +56,7 @@ import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.groups.GroupManager;
 import org.thoughtcrime.securesms.groups.GroupManager.GroupActionResult;
-import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
@@ -295,7 +295,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity
         new Crop(data.getData()).output(outputFile).asSquare().start(this);
         break;
       case Crop.REQUEST_CROP:
-        GlideApp.with(this)
+        Glide.with(this)
                 .asBitmap()
                 .load(Crop.getOutput(data))
                 .skipMemoryCache(true)
@@ -563,7 +563,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity
 
   private <T> void setAvatar(T model, Bitmap bitmap) {
     avatarBmp = bitmap;
-    GlideApp.with(this)
+    Glide.with(this)
             .load(model)
             .circleCrop()
             .skipMemoryCache(true)

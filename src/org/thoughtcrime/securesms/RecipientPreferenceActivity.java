@@ -15,16 +15,17 @@ import android.os.Bundle;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.CheckBoxPreference;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceCategory;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.CheckBoxPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.appcompat.widget.Toolbar;
 import android.telephony.PhoneNumberUtils;
 
@@ -54,8 +55,8 @@ import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
 import org.thoughtcrime.securesms.database.loaders.ThreadMediaLoader;
 import org.thoughtcrime.securesms.jobs.MultiDeviceBlockedUpdateJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
-import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.mms.OutgoingGroupMediaMessage;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.permissions.Permissions;
@@ -103,7 +104,7 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
   private ImageView               avatar;
-  private GlideRequests           glideRequests;
+  private RequestManager           glideRequests;
   private Address                 address;
   private TextView                threadPhotoRailLabel;
   private ThreadPhotoRailView     threadPhotoRailView;
@@ -118,7 +119,7 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
   @Override
   public void onCreate(Bundle instanceState, boolean ready) {
     setContentView(R.layout.recipient_preference_activity);
-    this.glideRequests = GlideApp.with(this);
+    this.glideRequests = Glide.with(this);
     this.address       = getIntent().getParcelableExtra(ADDRESS_EXTRA);
 
     Recipient recipient = Recipient.from(this, address, true);

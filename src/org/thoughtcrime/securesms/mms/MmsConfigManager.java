@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import androidx.annotation.Nullable;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.WorkerThread;
 
 import com.android.mms.service_alt.MmsConfig;
 

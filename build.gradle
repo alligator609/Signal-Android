@@ -37,7 +37,8 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.22"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
-    implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    // 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.github.bumptech.glide:glide:5.0.5'
     annotationProcessor 'com.github.bumptech.glide:compiler:5.0.5'
@@ -54,9 +55,10 @@ dependencies {
     annotationProcessor 'com.squareup.dagger:dagger-compiler:1.2.5'
     implementation 'org.bouncycastle:bcprov-jdk15to18:1.68'
     implementation 'com.google.protobuf:protobuf-java:3.21.12'
-
+    //implementation 'io.tajchert:durationpicker:1.0.2'
     implementation project(':libs:time-duration-picker')
     implementation project(':libs:TextDrawable')
+    implementation project(':libs:StickyHeaderGrid')
     //implementation project(':libs:NumberPickerView')
     implementation ('cn.carbswang.android:NumberPickerView:1.0.9') {
         exclude group: 'com.android.support'

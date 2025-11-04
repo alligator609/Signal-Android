@@ -10,8 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +25,8 @@ import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
-import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
 import org.thoughtcrime.securesms.util.CommunicationActions;
@@ -58,7 +58,7 @@ public class SharedContactDetailsActivity extends PassphraseRequiredActionBarAct
   private View                messageButtonView;
   private View                callButtonView;
 
-  private GlideRequests       glideRequests;
+  private RequestManager       glideRequests;
   private Contact             contact;
 
   private final DynamicTheme    dynamicTheme    = new DynamicNoActionBarTheme();
@@ -141,7 +141,7 @@ public class SharedContactDetailsActivity extends PassphraseRequiredActionBarAct
     list.setLayoutManager(new LinearLayoutManager(this));
     list.setAdapter(contactFieldAdapter);
 
-    glideRequests = GlideApp.with(this);
+    glideRequests = Glide.with(this);
   }
 
   @Override

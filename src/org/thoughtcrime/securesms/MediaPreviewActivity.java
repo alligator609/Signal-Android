@@ -29,12 +29,12 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v4.util.Pair;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.core.util.Pair;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
 import org.thoughtcrime.securesms.logging.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -53,8 +53,8 @@ import org.thoughtcrime.securesms.components.viewpager.ExtendedOnPageChangedList
 import org.thoughtcrime.securesms.database.Address;
 import org.thoughtcrime.securesms.database.MediaDatabase.MediaRecord;
 import org.thoughtcrime.securesms.database.loaders.PagingMediaLoader;
-import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
@@ -202,7 +202,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
     if (conversationRecipient != null) {
       getSupportLoaderManager().restartLoader(0, null, this);
     } else {
-      mediaPager.setAdapter(new SingleItemPagerAdapter(this, GlideApp.with(this), getWindow(), initialMediaUri, initialMediaType, initialMediaSize));
+      mediaPager.setAdapter(new SingleItemPagerAdapter(this, Glide.with(this), getWindow(), initialMediaUri, initialMediaType, initialMediaSize));
     }
   }
 
@@ -344,7 +344,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
   public void onLoadFinished(Loader<Pair<Cursor, Integer>> loader, @Nullable Pair<Cursor, Integer> data) {
     if (data != null) {
       @SuppressWarnings("ConstantConditions")
-      CursorPagerAdapter adapter = new CursorPagerAdapter(this, GlideApp.with(this), getWindow(), data.first, data.second, leftIsRecent);
+      CursorPagerAdapter adapter = new CursorPagerAdapter(this, Glide.with(this), getWindow(), data.first, data.second, leftIsRecent);
       mediaPager.setAdapter(adapter);
       adapter.setActive(true);
 
@@ -390,7 +390,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
 
   private static class SingleItemPagerAdapter extends PagerAdapter implements MediaItemAdapter {
 
-    private final GlideRequests glideRequests;
+    private final RequestManager glideRequests;
     private final Window        window;
     private final Uri           uri;
     private final String        mediaType;
@@ -398,7 +398,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
 
     private final LayoutInflater inflater;
 
-    SingleItemPagerAdapter(@NonNull Context context, @NonNull GlideRequests glideRequests,
+    SingleItemPagerAdapter(@NonNull Context context, @NonNull RequestManager glideRequests,
                            @NonNull Window window, @NonNull Uri uri, @NonNull String mediaType,
                            long size)
     {
@@ -460,7 +460,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
     private final WeakHashMap<Integer, MediaView> mediaViews = new WeakHashMap<>();
 
     private final Context       context;
-    private final GlideRequests glideRequests;
+    private final RequestManager glideRequests;
     private final Window        window;
     private final Cursor        cursor;
     private final boolean       leftIsRecent;
@@ -468,7 +468,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
     private boolean active;
     private int     autoPlayPosition;
 
-    CursorPagerAdapter(@NonNull Context context, @NonNull GlideRequests glideRequests,
+    CursorPagerAdapter(@NonNull Context context, @NonNull RequestManager glideRequests,
                        @NonNull Window window, @NonNull Cursor cursor, int autoPlayPosition,
                        boolean leftIsRecent)
     {

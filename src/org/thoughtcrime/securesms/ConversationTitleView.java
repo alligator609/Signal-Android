@@ -15,7 +15,8 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import org.thoughtcrime.securesms.components.AvatarImageView;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ViewUtil;
@@ -56,7 +57,7 @@ public class ConversationTitleView extends RelativeLayout {
     ViewUtil.setTextViewGravityStart(this.subtitle, getContext());
   }
 
-  public void setTitle(@NonNull GlideRequests glideRequests, @Nullable Recipient recipient) {
+  public void setTitle(@NonNull RequestManager glideRequests, @Nullable Recipient recipient) {
     if      (recipient == null) setComposeTitle();
     else                        setRecipientTitle(recipient);
 

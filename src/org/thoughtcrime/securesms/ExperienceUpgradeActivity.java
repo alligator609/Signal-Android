@@ -9,9 +9,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.StringRes;
+import androidx.core.app.NotificationCompat;
+import androidx.viewpager.widget.ViewPager;
 import org.thoughtcrime.securesms.logging.Log;
 
 import com.melnykov.fab.FloatingActionButton;

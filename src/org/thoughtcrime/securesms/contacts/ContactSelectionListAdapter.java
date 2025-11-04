@@ -22,7 +22,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -32,13 +32,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.RequestManager;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.RecyclerViewFastScroller.FastScrollAdapter;
 import org.thoughtcrime.securesms.contacts.ContactSelectionListAdapter.HeaderViewHolder;
 import org.thoughtcrime.securesms.contacts.ContactSelectionListAdapter.ViewHolder;
 import org.thoughtcrime.securesms.database.Address;
 import org.thoughtcrime.securesms.database.CursorRecyclerViewAdapter;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration.StickyHeaderAdapter;
 import org.thoughtcrime.securesms.util.Util;
 
@@ -68,7 +69,7 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
   private final LayoutInflater    li;
   private final TypedArray        drawables;
   private final ItemClickListener clickListener;
-  private final GlideRequests     glideRequests;
+  private final RequestManager     glideRequests;
 
   private final Set<String> selectedContacts = new HashSet<>();
 
@@ -78,8 +79,8 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
       super(itemView);
     }
 
-    public abstract void bind(@NonNull GlideRequests glideRequests, int type, String name, String number, String label, int color, boolean multiSelect);
-    public abstract void unbind(@NonNull GlideRequests glideRequests);
+    public abstract void bind(@NonNull RequestManager glideRequests, int type, String name, String number, String label, int color, boolean multiSelect);
+    public abstract void unbind(@NonNull RequestManager glideRequests);
     public abstract void setChecked(boolean checked);
   }
 
@@ -97,12 +98,12 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
       return (ContactSelectionListItem) itemView;
     }
 
-    public void bind(@NonNull GlideRequests glideRequests, int type, String name, String number, String label, int color, boolean multiSelect) {
+    public void bind(@NonNull RequestManager glideRequests, int type, String name, String number, String label, int color, boolean multiSelect) {
       getView().set(glideRequests, type, name, number, label, color, multiSelect);
     }
 
     @Override
-    public void unbind(@NonNull GlideRequests glideRequests) {
+    public void unbind(@NonNull RequestManager glideRequests) {
       getView().unbind(glideRequests);
     }
 
@@ -122,12 +123,12 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
     }
 
     @Override
-    public void bind(@NonNull GlideRequests glideRequests, int type, String name, String number, String label, int color, boolean multiSelect) {
+    public void bind(@NonNull RequestManager glideRequests, int type, String name, String number, String label, int color, boolean multiSelect) {
       this.label.setText(name);
     }
 
     @Override
-    public void unbind(@NonNull GlideRequests glideRequests) {}
+    public void unbind(@NonNull RequestManager glideRequests) {}
 
     @Override
     public void setChecked(boolean checked) {}
@@ -140,7 +141,7 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
   }
 
   public ContactSelectionListAdapter(@NonNull  Context context,
-                                     @NonNull  GlideRequests glideRequests,
+                                     @NonNull  RequestManager glideRequests,
                                      @Nullable Cursor cursor,
                                      @Nullable ItemClickListener clickListener,
                                      boolean multiSelect)

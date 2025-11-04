@@ -3,18 +3,18 @@ package org.thoughtcrime.securesms.contactshare;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AvatarImageView;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +24,12 @@ import static org.thoughtcrime.securesms.contactshare.Contact.*;
 
 public class ContactShareEditAdapter extends RecyclerView.Adapter<ContactShareEditAdapter.ContactEditViewHolder> {
 
-  private final GlideRequests glideRequests;
-  private final Locale        locale;
-  private final EventListener eventListener;
-  private final List<Contact> contacts;
+  private final RequestManager glideRequests;
+  private final Locale         locale;
+  private final EventListener  eventListener;
+  private final List<Contact>  contacts;
 
-  ContactShareEditAdapter(@NonNull GlideRequests glideRequests, @NonNull Locale locale, @NonNull EventListener eventListener) {
+  ContactShareEditAdapter(@NonNull RequestManager glideRequests, @NonNull Locale locale, @NonNull EventListener eventListener) {
     this.glideRequests = glideRequests;
     this.locale        = locale;
     this.eventListener = eventListener;
@@ -69,7 +69,7 @@ public class ContactShareEditAdapter extends RecyclerView.Adapter<ContactShareEd
     private final View                nameEditButton;
     private final ContactFieldAdapter fieldAdapter;
 
-    ContactEditViewHolder(View itemView, @NonNull Locale locale, @NonNull GlideRequests glideRequests) {
+    ContactEditViewHolder(View itemView, @NonNull Locale locale, @NonNull RequestManager glideRequests) {
       super(itemView);
 
       this.name           = itemView.findViewById(R.id.editable_contact_name);

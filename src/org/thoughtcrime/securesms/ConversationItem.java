@@ -24,10 +24,10 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
-import android.support.annotation.DimenRes;
+import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -67,7 +67,8 @@ import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob;
 import org.thoughtcrime.securesms.jobs.MmsDownloadJob;
 import org.thoughtcrime.securesms.jobs.MmsSendJob;
 import org.thoughtcrime.securesms.jobs.SmsSendJob;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideClickListener;
@@ -107,7 +108,7 @@ public class ConversationItem extends LinearLayout
   private Locale        locale;
   private boolean       groupThread;
   private Recipient     recipient;
-  private GlideRequests glideRequests;
+  private RequestManager glideRequests;
 
   protected ViewGroup              bodyBubble;
   private   QuoteView              quoteView;
@@ -187,7 +188,7 @@ public class ConversationItem extends LinearLayout
   public void bind(@NonNull MessageRecord           messageRecord,
                    @NonNull Optional<MessageRecord> previousMessageRecord,
                    @NonNull Optional<MessageRecord> nextMessageRecord,
-                   @NonNull GlideRequests           glideRequests,
+                   @NonNull RequestManager           glideRequests,
                    @NonNull Locale                  locale,
                    @NonNull Set<MessageRecord>      batchSelected,
                    @NonNull Recipient               conversationRecipient,

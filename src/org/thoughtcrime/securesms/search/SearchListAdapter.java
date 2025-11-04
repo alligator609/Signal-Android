@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.search;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,8 @@ import android.widget.TextView;
 import org.thoughtcrime.securesms.ConversationListItem;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.search.model.MessageResult;
 import org.thoughtcrime.securesms.search.model.SearchResult;
@@ -27,14 +28,14 @@ class SearchListAdapter extends    RecyclerView.Adapter<SearchListAdapter.Search
   private static final int TYPE_CONTACTS      = 2;
   private static final int TYPE_MESSAGES      = 3;
 
-  private final GlideRequests glideRequests;
+  private final RequestManager glideRequests;
   private final EventListener eventListener;
   private final Locale        locale;
 
   @NonNull
   private SearchResult searchResult = SearchResult.EMPTY;
 
-  SearchListAdapter(@NonNull GlideRequests glideRequests,
+  SearchListAdapter(@NonNull RequestManager glideRequests,
                     @NonNull EventListener eventListener,
                     @NonNull Locale        locale)
   {
@@ -158,7 +159,7 @@ class SearchListAdapter extends    RecyclerView.Adapter<SearchListAdapter.Search
     }
 
     void bind(@NonNull  ThreadRecord  conversationResult,
-              @NonNull  GlideRequests glideRequests,
+              @NonNull  RequestManager glideRequests,
               @NonNull  EventListener eventListener,
               @NonNull  Locale        locale,
               @Nullable String        query)
@@ -168,7 +169,7 @@ class SearchListAdapter extends    RecyclerView.Adapter<SearchListAdapter.Search
     }
 
     void bind(@NonNull  Recipient     contactResult,
-              @NonNull  GlideRequests glideRequests,
+              @NonNull  RequestManager glideRequests,
               @NonNull  EventListener eventListener,
               @NonNull  Locale        locale,
               @Nullable String        query)
@@ -178,7 +179,7 @@ class SearchListAdapter extends    RecyclerView.Adapter<SearchListAdapter.Search
     }
 
     void bind(@NonNull  MessageResult messageResult,
-              @NonNull  GlideRequests glideRequests,
+              @NonNull  RequestManager glideRequests,
               @NonNull  EventListener eventListener,
               @NonNull  Locale        locale,
               @Nullable String        query)

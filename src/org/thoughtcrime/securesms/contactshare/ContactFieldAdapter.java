@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +16,8 @@ import com.annimon.stream.Stream;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contactshare.Contact.Phone;
-import org.thoughtcrime.securesms.mms.GlideRequests;
-
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,9 +29,9 @@ class ContactFieldAdapter extends RecyclerView.Adapter<ContactFieldAdapter.Conta
   private final Locale        locale;
   private final boolean       selectable;
   private final List<Field>   fields;
-  private final GlideRequests glideRequests;
+  private final RequestManager glideRequests;
 
-  public ContactFieldAdapter(@NonNull Locale locale, @NonNull GlideRequests glideRequests, boolean selectable) {
+  public ContactFieldAdapter(@NonNull Locale locale, @NonNull RequestManager glideRequests, boolean selectable) {
     this.locale        = locale;
     this.glideRequests = glideRequests;
     this.selectable    = selectable;
@@ -95,7 +95,7 @@ class ContactFieldAdapter extends RecyclerView.Adapter<ContactFieldAdapter.Conta
       checkBox = itemView.findViewById(R.id.contact_field_checkbox);
     }
 
-    void bind(@NonNull Field field, @NonNull GlideRequests glideRequests, boolean selectable) {
+    void bind(@NonNull Field field, @NonNull RequestManager glideRequests, boolean selectable) {
       value.setMaxLines(field.maxLines);
       value.setText(field.value);
       label.setText(field.label);

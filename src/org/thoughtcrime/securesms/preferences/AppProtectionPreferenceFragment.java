@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.CheckBoxPreference;
-import android.support.v7.preference.Preference;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.CheckBoxPreference;
+import androidx.preference.Preference;
 import android.widget.Toast;
+
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
@@ -29,8 +32,6 @@ import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-
-import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
 public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment implements InjectableType {
 
@@ -134,7 +135,17 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      new TimeDurationPickerDialog(getContext(), (view, duration) -> {
+      MaterialTimePicker picker = new MaterialTimePicker.Builder()
+          .setTimeFormat(TimeFormat.CLOCK_24H)
+          .setHour(0)
+          .setMinute(0)
+          .setTitleText(R.string.AppProtectionPreferenceFragment_screen_lock_timeout)
+          .build();
+
+      picker.addOnPositiveButtonClickListener(v -> {
+        long duration = TimeUnit.HOURS.toMillis(picker.getHour()) +
+                        TimeUnit.MINUTES.toMillis(picker.getMinute());
+
         if (duration == 0) {
           TextSecurePreferences.setScreenLockTimeout(getContext(), 0);
         } else {
@@ -143,7 +154,9 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
         }
 
         initializeScreenLockTimeoutSummary();
-      }, 0).show();
+      });
+
+      picker.show(getParentFragmentManager(), picker.toString());
 
       return true;
     }
@@ -224,14 +237,24 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      new TimeDurationPickerDialog(getContext(), (view, duration) -> {
+      MaterialTimePicker picker = new MaterialTimePicker.Builder()
+          .setTimeFormat(TimeFormat.CLOCK_24H)
+          .setHour(0)
+          .setMinute(0)
+          .setTitleText(R.string.AppProtectionPreferenceFragment_passphrase_timeout)
+          .build();
+
+      picker.addOnPositiveButtonClickListener(v -> {
+        long duration = TimeUnit.HOURS.toMillis(picker.getHour()) +
+                        TimeUnit.MINUTES.toMillis(picker.getMinute());
         int timeoutMinutes = Math.max((int)TimeUnit.MILLISECONDS.toMinutes(duration), 1);
 
         TextSecurePreferences.setPassphraseTimeoutInterval(getActivity(), timeoutMinutes);
 
         initializePassphraseTimeoutSummary();
+      });
 
-      }, 0).show();
+      picker.show(getParentFragmentManager(), picker.toString());
 
       return true;
     }

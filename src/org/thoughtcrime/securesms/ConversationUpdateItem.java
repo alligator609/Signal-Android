@@ -18,7 +18,8 @@ import org.thoughtcrime.securesms.database.IdentityDatabase;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
 import org.thoughtcrime.securesms.util.DateUtils;
@@ -72,7 +73,7 @@ public class ConversationUpdateItem extends LinearLayout
   public void bind(@NonNull MessageRecord           messageRecord,
                    @NonNull Optional<MessageRecord> previousMessageRecord,
                    @NonNull Optional<MessageRecord> nextMessageRecord,
-                   @NonNull GlideRequests           glideRequests,
+                   @NonNull RequestManager           glideRequests,
                    @NonNull Locale                  locale,
                    @NonNull Set<MessageRecord>      batchSelected,
                    @NonNull Recipient               conversationRecipient,

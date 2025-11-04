@@ -2,7 +2,7 @@ package mobi.upod.timedurationpicker.sample;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {

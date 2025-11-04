@@ -35,7 +35,7 @@ import org.thoughtcrime.securesms.database.MmsDatabase;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch;
 import org.thoughtcrime.securesms.database.documents.NetworkFailure;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
 import org.thoughtcrime.securesms.sms.MessageSender;
@@ -53,7 +53,7 @@ public class MessageRecipientListItem extends RelativeLayout
   private final static String TAG = MessageRecipientListItem.class.getSimpleName();
 
   private RecipientDeliveryStatus member;
-  private GlideRequests           glideRequests;
+  private RequestManager           glideRequests;
   private FromTextView            fromView;
   private TextView                errorDescription;
   private TextView                actionDescription;
@@ -82,7 +82,7 @@ public class MessageRecipientListItem extends RelativeLayout
     this.deliveryStatusView = findViewById(R.id.delivery_status);
   }
 
-  public void set(final GlideRequests glideRequests,
+  public void set(final RequestManager glideRequests,
                   final MessageRecord record,
                   final RecipientDeliveryStatus member,
                   final boolean isPushGroup)

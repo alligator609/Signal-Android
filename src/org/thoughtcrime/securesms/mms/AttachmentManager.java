@@ -39,6 +39,8 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -116,7 +118,7 @@ public class AttachmentManager {
 
   }
 
-  public void clear(@NonNull GlideRequests glideRequests, boolean animate) {
+  public void clear(@NonNull RequestManager glideRequests, boolean animate) {
     if (attachmentViewStub.resolved()) {
 
       if (animate) {
@@ -216,7 +218,7 @@ public class AttachmentManager {
   }
 
   @SuppressLint("StaticFieldLeak")
-  public ListenableFuture<Boolean> setMedia(@NonNull final GlideRequests glideRequests,
+  public ListenableFuture<Boolean> setMedia(@NonNull final RequestManager glideRequests,
                                             @NonNull final Uri uri,
                                             @NonNull final MediaType mediaType,
                                             @NonNull final MediaConstraints constraints,
@@ -511,7 +513,7 @@ public class AttachmentManager {
     @Override
     public void onClick(View v) {
       cleanup();
-      clear(GlideApp.with(context.getApplicationContext()), true);
+      clear(Glide.with(context.getApplicationContext()), true);
     }
   }
 

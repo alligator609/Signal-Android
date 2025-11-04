@@ -20,7 +20,7 @@ import android.content.Context;
 import android.database.Cursor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +29,8 @@ import org.thoughtcrime.securesms.database.CursorRecyclerViewAdapter;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.util.Conversions;
 
 import java.security.MessageDigest;
@@ -51,7 +52,7 @@ class ConversationListAdapter extends CursorRecyclerViewAdapter<ConversationList
   private static final int MESSAGE_TYPE_INBOX_ZERO     = 3;
 
   private final @NonNull  ThreadDatabase    threadDatabase;
-  private final @NonNull  GlideRequests     glideRequests;
+  private final @NonNull  RequestManager     glideRequests;
   private final @NonNull  Locale            locale;
   private final @NonNull  LayoutInflater    inflater;
   private final @Nullable ItemClickListener clickListener;
@@ -79,7 +80,7 @@ class ConversationListAdapter extends CursorRecyclerViewAdapter<ConversationList
   }
 
   ConversationListAdapter(@NonNull Context context,
-                          @NonNull GlideRequests glideRequests,
+                          @NonNull RequestManager glideRequests,
                           @NonNull Locale locale,
                           @Nullable Cursor cursor,
                           @Nullable ItemClickListener clickListener)

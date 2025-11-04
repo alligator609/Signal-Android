@@ -1,7 +1,7 @@
 package org.thoughtcrime.securesms.search;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -9,8 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +24,8 @@ import org.thoughtcrime.securesms.contacts.ContactAccessor;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
-import org.thoughtcrime.securesms.mms.GlideApp;
+//import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.search.model.MessageResult;
 import org.thoughtcrime.securesms.search.model.SearchResult;
@@ -91,7 +92,7 @@ public class SearchFragment extends Fragment implements SearchListAdapter.EventL
     noResultsView = view.findViewById(R.id.search_no_results);
     listView      = view.findViewById(R.id.search_list);
 
-    listAdapter    = new SearchListAdapter(GlideApp.with(this), this, locale);
+    listAdapter    = new SearchListAdapter(Glide.with(this), this, locale);
     listDecoration = new StickyHeaderDecoration(listAdapter, false, false);
 
     listView.setAdapter(listAdapter);

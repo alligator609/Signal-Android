@@ -27,4 +27,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "signal-android" // Change this
-include ':app', ':libs:time-duration-picker', ':libs:TextDrawable', ':libs:ColorPicker', ':libs:NumberPickerView'
+include ':app', ':libs:time-duration-picker',
+        ':libs:TextDrawable',
+        ':libs:ColorPicker',
+        ':libs:NumberPickerView',
+        ':libs:StickyHeaderGrid'

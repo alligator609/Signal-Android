@@ -32,7 +32,7 @@ import com.google.android.mms.pdu_alt.RetrieveConf;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpGetHC4;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import java.io.IOException;
@@ -48,10 +48,10 @@ public class IncomingLegacyMmsConnection extends LegacyMmsConnection implements 
   }
 
   private HttpUriRequest constructRequest(Apn contentApn, boolean useProxy) throws IOException {
-    HttpGetHC4 request;
+    HttpGet request;
 
     try {
-      request = new HttpGetHC4(contentApn.getMmsc());
+      request = new HttpGet(contentApn.getMmsc());
     } catch (IllegalArgumentException e) {
       // #7339
       throw new IOException(e);

@@ -75,7 +75,8 @@ import org.thoughtcrime.securesms.database.MessagingDatabase.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.loaders.ConversationListLoader;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
-import org.thoughtcrime.securesms.mms.GlideApp;
+//import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
 import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -222,7 +223,7 @@ public class ConversationListFragment extends Fragment
   }
 
   private void initializeListAdapter() {
-    list.setAdapter(new ConversationListAdapter(getActivity(), GlideApp.with(this), locale, null, this));
+    list.setAdapter(new ConversationListAdapter(getActivity(), Glide.with(this), locale, null, this));
     getLoaderManager().restartLoader(0, null, this);
   }
 

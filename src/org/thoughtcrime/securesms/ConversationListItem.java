@@ -45,7 +45,8 @@ import org.thoughtcrime.securesms.components.DeliveryStatusView;
 import org.thoughtcrime.securesms.components.FromTextView;
 import org.thoughtcrime.securesms.components.ThumbnailView;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
 import org.thoughtcrime.securesms.search.model.MessageResult;
@@ -74,7 +75,7 @@ public class ConversationListItem extends RelativeLayout
   private Set<Long>          selectedThreads;
   private Recipient          recipient;
   private long               threadId;
-  private GlideRequests      glideRequests;
+  private RequestManager      glideRequests;
   private TextView           subjectView;
   private FromTextView       fromView;
   private TextView           dateView;
@@ -118,7 +119,7 @@ public class ConversationListItem extends RelativeLayout
 
   @Override
   public void bind(@NonNull ThreadRecord thread,
-                   @NonNull GlideRequests glideRequests,
+                   @NonNull RequestManager glideRequests,
                    @NonNull Locale locale,
                    @NonNull Set<Long> selectedThreads,
                    boolean batchMode)
@@ -127,7 +128,7 @@ public class ConversationListItem extends RelativeLayout
   }
 
   public void bind(@NonNull ThreadRecord thread,
-                   @NonNull GlideRequests glideRequests,
+                   @NonNull RequestManager glideRequests,
                    @NonNull Locale locale,
                    @NonNull Set<Long> selectedThreads,
                    boolean batchMode,
@@ -176,7 +177,7 @@ public class ConversationListItem extends RelativeLayout
   }
 
   public void bind(@NonNull  Recipient     contact,
-                   @NonNull  GlideRequests glideRequests,
+                   @NonNull  RequestManager glideRequests,
                    @NonNull  Locale        locale,
                    @Nullable String        highlightSubstring)
   {
@@ -201,7 +202,7 @@ public class ConversationListItem extends RelativeLayout
   }
 
   public void bind(@NonNull  MessageResult messageResult,
-                   @NonNull  GlideRequests glideRequests,
+                   @NonNull  RequestManager glideRequests,
                    @NonNull  Locale        locale,
                    @Nullable String        highlightSubstring)
   {

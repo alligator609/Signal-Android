@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -41,7 +41,8 @@ import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.Address;
 import org.thoughtcrime.securesms.dependencies.InjectableType;
 import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob;
-import org.thoughtcrime.securesms.mms.GlideApp;
+//import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileMediaConstraints;
@@ -305,7 +306,7 @@ public class CreateProfileActivity extends BaseActionBarActivity implements Inje
         protected void onPostExecute(byte[] result) {
           if (result != null) {
             avatarBytes = result;
-            GlideApp.with(CreateProfileActivity.this)
+            Glide.with(CreateProfileActivity.this)
                     .load(result)
                     .circleCrop()
                     .into(avatar);
@@ -318,7 +319,7 @@ public class CreateProfileActivity extends BaseActionBarActivity implements Inje
         public void onSuccess(byte[] result) {
           if (result != null) {
             avatarBytes = result;
-            GlideApp.with(CreateProfileActivity.this)
+            Glide.with(CreateProfileActivity.this)
                     .load(result)
                     .circleCrop()
                     .into(avatar);

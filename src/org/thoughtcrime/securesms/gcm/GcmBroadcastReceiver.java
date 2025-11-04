@@ -1,11 +1,12 @@
 package org.thoughtcrime.securesms.gcm;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
-import androidx.annotation.NonNull;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.InjectableType;
@@ -31,12 +32,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 
-public class GcmBroadcastReceiver extends WakefulBroadcastReceiver implements InjectableType {
+public class GcmBroadcastReceiver extends BroadcastReceiver implements InjectableType {
 
   private static final String TAG = GcmBroadcastReceiver.class.getSimpleName();
-
   private static final Executor MESSAGE_EXECUTOR = SignalExecutors.newCachedSingleThreadExecutor("GcmMessageProcessing");
-
   private static int activeCount = 0;
 
   @Inject SignalServiceMessageReceiver messageReceiver;
@@ -45,8 +44,8 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver implements In
   public void onReceive(Context context, Intent intent) {
     ApplicationContext.getInstance(context).injectDependencies(this);
 
-    GoogleCloudMessaging gcm         = GoogleCloudMessaging.getInstance(context);
-    String               messageType = gcm.getMessageType(intent);
+    GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(context);
+    String messageType = gcm.getMessageType(intent);
 
     if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
       Log.i(TAG, "GCM message...");
@@ -58,15 +57,18 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver implements In
 
       String receiptData = intent.getStringExtra("receipt");
 
-      if      (!TextUtils.isEmpty(receiptData)) handleReceivedMessage(context, receiptData);
-      else if (intent.hasExtra("notification")) handleReceivedNotification(context);
+      if (!TextUtils.isEmpty(receiptData)) {
+        handleReceivedMessage(context, receiptData);
+      } else if (intent.hasExtra("notification")) {
+        handleReceivedNotification(context);
+      }
     }
   }
 
   private void handleReceivedMessage(Context context, String data) {
     ApplicationContext.getInstance(context)
-                      .getJobManager()
-                      .add(new PushContentReceiveJob(context, data));
+            .getJobManager()
+            .add(new PushContentReceiveJob(context, data));
   }
 
   private void handleReceivedNotification(Context context) {
@@ -77,18 +79,18 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver implements In
 
     TextSecurePreferences.setNeedsMessagePull(context, true);
 
-    long          startTime    = System.currentTimeMillis();
-    PendingResult callback     = goAsync();
-    PowerManager  powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-    boolean       doze         = PowerManagerCompat.isDeviceIdleMode(powerManager);
-    boolean       network      = new NetworkRequirement(context).isPresent();
+    long startTime = System.currentTimeMillis();
+    final PendingResult callback = goAsync();
+    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+    boolean doze = PowerManagerCompat.isDeviceIdleMode(powerManager);
+    boolean network = new NetworkRequirement(context).isPresent();
 
-    final Object         foregroundLock    = new Object();
-    final AtomicBoolean  foregroundRunning = new AtomicBoolean(false);
-    final AtomicBoolean  taskCompleted     = new AtomicBoolean(false);
+    final Object foregroundLock = new Object();
+    final AtomicBoolean foregroundRunning = new AtomicBoolean(false);
+    final AtomicBoolean taskCompleted = new AtomicBoolean(false);
 
     if (doze || !network) {
-      Log.i(TAG, "Starting a foreground task because we may be operating in a constrained environment. Doze: " + doze + " Network: " + network);
+      Log.i(TAG, "Starting a foreground task due to constrained environment. Doze: " + doze + " Network: " + network);
       showForegroundNotification(context);
       foregroundRunning.set(true);
       callback.finish();
@@ -96,12 +98,13 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver implements In
 
     MESSAGE_EXECUTOR.execute(() -> {
       try {
-        new PushNotificationReceiveJob(context).pullAndProcessMessages(messageReceiver, TAG, startTime);
+        new PushNotificationReceiveJob(context)
+                .pullAndProcessMessages(messageReceiver, TAG, startTime);
       } catch (IOException e) {
         Log.i(TAG, "Failed to retrieve the envelope. Scheduling on JobManager.", e);
         ApplicationContext.getInstance(context)
-                          .getJobManager()
-                          .add(new PushNotificationReceiveJob(context));
+                .getJobManager()
+                .add(new PushNotificationReceiveJob(context));
       } finally {
         synchronized (foregroundLock) {
           if (foregroundRunning.getAndSet(false)) {
@@ -135,10 +138,12 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver implements In
   }
 
   private void showForegroundNotification(@NonNull Context context) {
-    GenericForegroundService.startForegroundTask(context,
-                                                 context.getString(R.string.GcmBroadcastReceiver_retrieving_a_message),
-                                                 NotificationChannels.OTHER,
-                                                 R.drawable.ic_signal_downloading);
+    GenericForegroundService.startForegroundTask(
+            context,
+            context.getString(R.string.GcmBroadcastReceiver_retrieving_a_message),
+            NotificationChannels.OTHER,
+            R.drawable.ic_signal_downloading
+    );
   }
 
   private static synchronized boolean incrementActiveGcmCount() {

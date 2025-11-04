@@ -1,25 +1,25 @@
 package org.thoughtcrime.securesms.contactshare;
 
 import android.app.Activity;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.annimon.stream.Stream;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
@@ -31,18 +31,17 @@ import static org.thoughtcrime.securesms.contactshare.ContactShareEditViewModel.
 
 public class ContactShareEditActivity extends PassphraseRequiredActionBarActivity implements ContactShareEditAdapter.EventListener {
 
-  public  static final String KEY_CONTACTS     = "contacts";
+  public static final String KEY_CONTACTS = "contacts";
   private static final String KEY_CONTACT_URIS = "contact_uris";
-  private static final int    CODE_NAME_EDIT   = 55;
+  private static final int CODE_NAME_EDIT = 55;
 
-  private final DynamicTheme    dynamicTheme    = new DynamicTheme();
+  private final DynamicTheme dynamicTheme = new DynamicTheme();
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
   private ContactShareEditViewModel viewModel;
 
   public static Intent getIntent(@NonNull Context context, @NonNull List<Uri> contactUris) {
     ArrayList<Uri> contactUriList = new ArrayList<>(contactUris);
-
     Intent intent = new Intent(context, ContactShareEditActivity.class);
     intent.putParcelableArrayListExtra(KEY_CONTACT_URIS, contactUriList);
     return intent;
@@ -71,21 +70,32 @@ public class ContactShareEditActivity extends PassphraseRequiredActionBarActivit
     sendButton.setOnClickListener(v -> onSendClicked(viewModel.getFinalizedContacts()));
 
     RecyclerView contactList = findViewById(R.id.contact_share_edit_list);
-    contactList.setLayoutManager(new LinearLayoutManager(this));
-    contactList.getLayoutManager().setAutoMeasureEnabled(true);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    layoutManager.setAutoMeasureEnabled(true);
+    contactList.setLayoutManager(layoutManager);
 
-    ContactShareEditAdapter contactAdapter = new ContactShareEditAdapter(GlideApp.with(this), dynamicLanguage.getCurrentLocale(), this);
+    ContactShareEditAdapter contactAdapter = new ContactShareEditAdapter(
+            Glide.with(this),
+            dynamicLanguage.getCurrentLocale(),
+            this
+    );
     contactList.setAdapter(contactAdapter);
 
-    ContactRepository contactRepository = new ContactRepository(this,
-                                                                AsyncTask.THREAD_POOL_EXECUTOR,
-                                                                DatabaseFactory.getContactsDatabase(this));
+    ContactRepository contactRepository = new ContactRepository(
+            this,
+            AsyncTask.THREAD_POOL_EXECUTOR,
+            DatabaseFactory.getContactsDatabase(this)
+    );
 
-    viewModel = ViewModelProviders.of(this, new Factory(contactUris, contactRepository)).get(ContactShareEditViewModel.class);
+    // ✅ Fixed ViewModel creation for AndroidX
+    ViewModelProvider.Factory factory = new Factory(contactUris, contactRepository);
+    viewModel = new ViewModelProvider(this, factory).get(ContactShareEditViewModel.class);
+
     viewModel.getContacts().observe(this, contacts -> {
       contactAdapter.setContacts(contacts);
       contactList.post(() -> contactList.scrollToPosition(0));
     });
+
     viewModel.getEvents().observe(this, this::presentEvent);
   }
 
@@ -93,13 +103,11 @@ public class ContactShareEditActivity extends PassphraseRequiredActionBarActivit
   protected void onResume() {
     super.onResume();
     dynamicTheme.onResume(this);
-    dynamicTheme.onResume(this);
+    dynamicLanguage.onResume(this);
   }
 
   private void presentEvent(@Nullable Event event) {
-    if (event == null) {
-      return;
-    }
+    if (event == null) return;
 
     if (event == Event.BAD_CONTACT) {
       Toast.makeText(this, R.string.ContactShareEditActivity_invalid_contact, Toast.LENGTH_SHORT).show();
@@ -109,13 +117,9 @@ public class ContactShareEditActivity extends PassphraseRequiredActionBarActivit
 
   private void onSendClicked(List<Contact> contacts) {
     Intent intent = new Intent();
-
-    ArrayList<Contact> contactArrayList = new ArrayList<>(contacts.size());
-    contactArrayList.addAll(contacts);
+    ArrayList<Contact> contactArrayList = new ArrayList<>(contacts);
     intent.putExtra(KEY_CONTACTS, contactArrayList);
-
     setResult(Activity.RESULT_OK, intent);
-
     finish();
   }
 
@@ -125,15 +129,13 @@ public class ContactShareEditActivity extends PassphraseRequiredActionBarActivit
   }
 
   @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if (requestCode != CODE_NAME_EDIT || resultCode != RESULT_OK || data == null) {
-      return;
-    }
+    if (requestCode != CODE_NAME_EDIT || resultCode != RESULT_OK || data == null) return;
 
-    int  position = data.getIntExtra(ContactNameEditActivity.KEY_CONTACT_INDEX, -1);
-    Name name     = data.getParcelableExtra(ContactNameEditActivity.KEY_NAME);
+    int position = data.getIntExtra(ContactNameEditActivity.KEY_CONTACT_INDEX, -1);
+    Name name = data.getParcelableExtra(ContactNameEditActivity.KEY_NAME);
 
     if (name != null) {
       viewModel.updateContactName(position, name);

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AvatarImageView;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
 import org.thoughtcrime.securesms.util.Util;
@@ -17,7 +17,7 @@ public class BlockedContactListItem extends RelativeLayout implements RecipientM
 
   private AvatarImageView contactPhotoImage;
   private TextView        nameView;
-  private GlideRequests   glideRequests;
+  private RequestManager   glideRequests;
   private Recipient       recipient;
 
   public BlockedContactListItem(Context context) {
@@ -39,7 +39,7 @@ public class BlockedContactListItem extends RelativeLayout implements RecipientM
     this.nameView          = findViewById(R.id.name);
   }
 
-  public void set(@NonNull GlideRequests glideRequests, @NonNull Recipient recipients) {
+  public void set(@NonNull RequestManager glideRequests, @NonNull Recipient recipients) {
     this.glideRequests = glideRequests;
     this.recipient     = recipients;
 

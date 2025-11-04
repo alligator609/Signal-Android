@@ -1,7 +1,24 @@
+/**
+ * Copyright (C) 2014 Open Whisper Systems
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.thoughtcrime.securesms.contacts;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,10 +26,11 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.RequestManager;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AvatarImageView;
 import org.thoughtcrime.securesms.database.Address;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
 import org.thoughtcrime.securesms.util.GroupUtil;
@@ -32,7 +50,7 @@ public class ContactSelectionListItem extends LinearLayout implements RecipientM
 
   private String        number;
   private Recipient     recipient;
-  private GlideRequests glideRequests;
+  private RequestManager glideRequests;
 
   public ContactSelectionListItem(Context context) {
     super(context);
@@ -54,7 +72,7 @@ public class ContactSelectionListItem extends LinearLayout implements RecipientM
     ViewUtil.setTextViewGravityStart(this.nameView, getContext());
   }
 
-  public void set(@NonNull GlideRequests glideRequests, int type, String name, String number, String label, int color, boolean multiSelect) {
+  public void set(@NonNull RequestManager glideRequests, int type, String name, String number, String label, int color, boolean multiSelect) {
     this.glideRequests = glideRequests;
     this.number        = number;
 
@@ -85,7 +103,7 @@ public class ContactSelectionListItem extends LinearLayout implements RecipientM
     this.checkBox.setChecked(selected);
   }
 
-  public void unbind(GlideRequests glideRequests) {
+  public void unbind(RequestManager glideRequests) {
     if (recipient != null) {
       recipient.removeListener(this);
       recipient = null;

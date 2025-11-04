@@ -6,7 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import org.thoughtcrime.securesms.logging.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +26,8 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.giph.model.GiphyImage;
 import org.thoughtcrime.securesms.giph.model.GiphyPaddedUrl;
-import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
@@ -40,7 +40,7 @@ class GiphyAdapter extends RecyclerView.Adapter<GiphyAdapter.GiphyViewHolder> {
   private static final String TAG = GiphyAdapter.class.getSimpleName();
 
   private final Context       context;
-  private final GlideRequests glideRequests;
+  private final RequestManager glideRequests;
 
   private List<GiphyImage>     images;
   private OnItemClickListener  listener;
@@ -114,7 +114,7 @@ class GiphyAdapter extends RecyclerView.Adapter<GiphyAdapter.GiphyViewHolder> {
     }
   }
 
-  GiphyAdapter(@NonNull Context context, @NonNull GlideRequests glideRequests, @NonNull List<GiphyImage> images) {
+  GiphyAdapter(@NonNull Context context, @NonNull RequestManager glideRequests, @NonNull List<GiphyImage> images) {
     this.context       = context.getApplicationContext();
     this.glideRequests = glideRequests;
     this.images        = images;
@@ -147,7 +147,7 @@ class GiphyAdapter extends RecyclerView.Adapter<GiphyAdapter.GiphyViewHolder> {
     holder.thumbnail.setAspectRatio(image.getGifAspectRatio());
     holder.gifProgress.setVisibility(View.GONE);
 
-    RequestBuilder<Drawable> thumbnailRequest = GlideApp.with(context)
+    RequestBuilder<Drawable> thumbnailRequest = Glide.with(context)
                                                         .load(new GiphyPaddedUrl(image.getStillUrl(), image.getStillSize()))
                                                         .diskCacheStrategy(DiskCacheStrategy.ALL);
 

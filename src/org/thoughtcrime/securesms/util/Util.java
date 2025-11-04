@@ -33,7 +33,7 @@ import android.os.Looper;
 import android.provider.Telephony;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
+import androidx.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;

@@ -18,11 +18,11 @@ package org.thoughtcrime.securesms;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import org.thoughtcrime.securesms.logging.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
+import com.bumptech.glide.RequestManager;
 
 import org.thoughtcrime.securesms.ConversationAdapter.HeaderViewHolder;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
@@ -39,7 +40,6 @@ import org.thoughtcrime.securesms.database.MmsSmsColumns;
 import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.Conversions;
@@ -71,14 +71,14 @@ import java.util.Set;
  *
  */
 public class ConversationAdapter <V extends View & BindableConversationItem>
-    extends FastCursorRecyclerViewAdapter<ConversationAdapter.ViewHolder, MessageRecord>
-  implements StickyHeaderDecoration.StickyHeaderAdapter<HeaderViewHolder>
+        extends FastCursorRecyclerViewAdapter<ConversationAdapter.ViewHolder, MessageRecord>
+        implements StickyHeaderDecoration.StickyHeaderAdapter<HeaderViewHolder>
 {
 
   private static final int MAX_CACHE_SIZE = 40;
   private static final String TAG = ConversationAdapter.class.getSimpleName();
   private final Map<String,SoftReference<MessageRecord>> messageRecordCache =
-      Collections.synchronizedMap(new LRUCache<String, SoftReference<MessageRecord>>(MAX_CACHE_SIZE));
+          Collections.synchronizedMap(new LRUCache<String, SoftReference<MessageRecord>>(MAX_CACHE_SIZE));
 
   private static final int MESSAGE_TYPE_OUTGOING           = 0;
   private static final int MESSAGE_TYPE_INCOMING           = 1;
@@ -93,7 +93,7 @@ public class ConversationAdapter <V extends View & BindableConversationItem>
   private final Set<MessageRecord> batchSelected = Collections.synchronizedSet(new HashSet<MessageRecord>());
 
   private final @Nullable ItemClickListener clickListener;
-  private final @NonNull  GlideRequests     glideRequests;
+  private final @NonNull  RequestManager    glideRequests;
   private final @NonNull  Locale            locale;
   private final @NonNull  Recipient         recipient;
   private final @NonNull  MmsSmsDatabase    db;
@@ -158,7 +158,7 @@ public class ConversationAdapter <V extends View & BindableConversationItem>
   }
 
   public ConversationAdapter(@NonNull Context context,
-                             @NonNull GlideRequests glideRequests,
+                             @NonNull RequestManager glideRequests,
                              @NonNull Locale locale,
                              @Nullable ItemClickListener clickListener,
                              @Nullable Cursor cursor,
@@ -197,13 +197,13 @@ public class ConversationAdapter <V extends View & BindableConversationItem>
     MessageRecord nextRecord       = adapterPosition > 0 && !isHeaderPosition(adapterPosition - 1) ? getRecordForPositionOrThrow(adapterPosition - 1) : null;
 
     viewHolder.getView().bind(messageRecord,
-                              Optional.fromNullable(previousRecord),
-                              Optional.fromNullable(nextRecord),
-                              glideRequests,
-                              locale,
-                              batchSelected,
-                              recipient,
-                              messageRecord == recordToPulseHighlight);
+            Optional.fromNullable(previousRecord),
+            Optional.fromNullable(nextRecord),
+            glideRequests,
+            locale,
+            batchSelected,
+            recipient,
+            messageRecord == recordToPulseHighlight);
 
     if (messageRecord == recordToPulseHighlight) {
       recordToPulseHighlight = null;
@@ -472,4 +472,3 @@ public class ConversationAdapter <V extends View & BindableConversationItem>
   }
 
 }
-

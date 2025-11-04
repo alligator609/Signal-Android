@@ -41,13 +41,14 @@ import android.provider.ContactsContract;
 import android.provider.Telephony;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v4.content.pm.ShortcutInfoCompat;
-import android.support.v4.content.pm.ShortcutManagerCompat;
-import android.support.v4.graphics.drawable.IconCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.WindowCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.core.view.WindowCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -132,8 +133,10 @@ import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
 import org.thoughtcrime.securesms.mms.AttachmentManager;
 import org.thoughtcrime.securesms.mms.AttachmentManager.MediaType;
 import org.thoughtcrime.securesms.mms.AudioSlide;
-import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.ImageSlide;
 import org.thoughtcrime.securesms.mms.LocationSlide;
 import org.thoughtcrime.securesms.mms.MediaConstraints;
@@ -238,7 +241,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private static final int PICK_CAMERA         = 12;
   private static final int EDIT_IMAGE          = 13;
 
-  private   GlideRequests               glideRequests;
+  private   RequestManager               glideRequests;
   protected ComposeText                 composeText;
   private   AnimatingToggle             buttonToggle;
   private   SendButton                  sendButton;
@@ -1440,7 +1443,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     threadId         = getIntent().getLongExtra(THREAD_ID_EXTRA, -1);
     archived         = getIntent().getBooleanExtra(IS_ARCHIVED_EXTRA, false);
     distributionType = getIntent().getIntExtra(DISTRIBUTION_TYPE_EXTRA, ThreadDatabase.DistributionTypes.DEFAULT);
-    glideRequests    = GlideApp.with(this);
+    glideRequests    = Glide.with(this);
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
       LinearLayout conversationContainer = ViewUtil.findById(this, R.id.conversation_container);

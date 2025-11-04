@@ -1,6 +1,6 @@
 package org.thoughtcrime.securesms.contactshare;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,7 +58,7 @@ public class ContactNameEditActivity extends PassphraseRequiredActionBarActivity
     initializeToolbar();
     initializeViews(name);
 
-    viewModel = ViewModelProviders.of(this).get(ContactNameEditViewModel.class);
+    viewModel = new ViewModelProvider(this).get(ContactNameEditViewModel.class);
     viewModel.setName(name);
     viewModel.getDisplayName().observe(this, displayNameView::setText);
   }

@@ -9,7 +9,7 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 
 import org.thoughtcrime.securesms.database.model.MessageRecord;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.Conversions;
 
@@ -20,12 +20,12 @@ import java.util.List;
 class MessageDetailsRecipientAdapter extends BaseAdapter implements AbsListView.RecyclerListener {
 
   private final Context                       context;
-  private final GlideRequests                 glideRequests;
+  private final RequestManager                 glideRequests;
   private final MessageRecord                 record;
   private final List<RecipientDeliveryStatus> members;
   private final boolean                       isPushGroup;
 
-  MessageDetailsRecipientAdapter(@NonNull Context context, @NonNull GlideRequests glideRequests,
+  MessageDetailsRecipientAdapter(@NonNull Context context, @NonNull RequestManager glideRequests,
                                  @NonNull MessageRecord record, @NonNull List<RecipientDeliveryStatus> members,
                                  boolean isPushGroup)
   {

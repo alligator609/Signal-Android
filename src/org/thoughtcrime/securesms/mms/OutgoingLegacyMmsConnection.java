@@ -30,9 +30,9 @@ import com.google.android.mms.pdu_alt.SendConf;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpPostHC4;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.ByteArrayEntityHC4;
+import org.apache.http.entity.ByteArrayEntity;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
 
 import java.io.IOException;
@@ -50,12 +50,12 @@ public class OutgoingLegacyMmsConnection extends LegacyMmsConnection implements 
       throws IOException
   {
     try {
-      HttpPostHC4 request = new HttpPostHC4(apn.getMmsc());
+      HttpPost request = new HttpPost(apn.getMmsc());
       for (Header header : getBaseHeaders()) {
         request.addHeader(header);
       }
 
-      request.setEntity(new ByteArrayEntityHC4(pduBytes));
+      request.setEntity(new ByteArrayEntity(pduBytes));
       if (useProxy) {
         HttpHost proxy = new HttpHost(apn.getProxy(), apn.getPort());
         request.setConfig(RequestConfig.custom().setProxy(proxy).build());

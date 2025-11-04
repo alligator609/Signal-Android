@@ -1,6 +1,6 @@
 package org.thoughtcrime.securesms.util.concurrent;
 
-import android.arch.lifecycle.Lifecycle;
+import androidx.lifecycle.Lifecycle;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 

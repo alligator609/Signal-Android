@@ -13,7 +13,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.util.ServiceUtil;

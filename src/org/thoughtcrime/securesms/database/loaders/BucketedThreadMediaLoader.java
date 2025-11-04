@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import androidx.annotation.NonNull;
-import android.support.v4.content.AsyncTaskLoader;
+import androidx.loader.content.AsyncTaskLoader;
 
 import com.annimon.stream.Stream;
 

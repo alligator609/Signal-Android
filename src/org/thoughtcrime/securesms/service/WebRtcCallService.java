@@ -17,7 +17,7 @@ import android.os.IBinder;
 import android.os.ResultReceiver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.WorkerThread;
 import android.telephony.TelephonyManager;
 import org.thoughtcrime.securesms.logging.Log;
 import android.util.Pair;

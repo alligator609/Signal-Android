@@ -9,9 +9,9 @@ import android.net.Uri;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.Action;
-import android.support.v4.app.RemoteInput;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationCompat.Action;
+import androidx.core.app.RemoteInput;
 import android.text.SpannableStringBuilder;
 import org.thoughtcrime.securesms.logging.Log;
 
@@ -23,7 +23,7 @@ import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.GeneratedContactPhoto;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader;
-import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
@@ -75,7 +75,7 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
 
       if (contactPhoto != null) {
         try {
-          setLargeIcon(GlideApp.with(context.getApplicationContext())
+          setLargeIcon(Glide.with(context.getApplicationContext())
                                .load(contactPhoto)
                                .diskCacheStrategy(DiskCacheStrategy.ALL)
                                .circleCrop()
@@ -238,7 +238,7 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
       @SuppressWarnings("ConstantConditions")
       Uri uri = slideDeck.getThumbnailSlide().getThumbnailUri();
 
-      return GlideApp.with(context.getApplicationContext())
+      return Glide.with(context.getApplicationContext())
                      .asBitmap()
                      .load(new DecryptableStreamUriLoader.DecryptableUri(uri))
                      .diskCacheStrategy(DiskCacheStrategy.NONE)

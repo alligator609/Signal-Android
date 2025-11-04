@@ -23,7 +23,7 @@ import android.database.MatrixCursor;
 import android.database.MergeCursor;
 import android.provider.ContactsContract;
 import androidx.annotation.NonNull;
-import android.support.v4.content.CursorLoader;
+import androidx.loader.content.CursorLoader;
 import android.text.TextUtils;
 
 import org.thoughtcrime.securesms.R;

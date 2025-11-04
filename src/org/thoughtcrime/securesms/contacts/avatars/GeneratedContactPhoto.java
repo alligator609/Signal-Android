@@ -8,7 +8,7 @@ import android.graphics.drawable.LayerDrawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
-import android.support.v7.content.res.AppCompatResources;
+import androidx.appcompat.content.res.AppCompatResources;
 import android.text.TextUtils;
 
 import com.amulyakhare.textdrawable.TextDrawable;

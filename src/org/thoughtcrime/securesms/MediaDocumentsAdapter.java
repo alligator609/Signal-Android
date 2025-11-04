@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import androidx.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +31,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.codewaves.stickyheadergrid.StickyHeaderGridLayoutManager.TAG;
 
 public class MediaDocumentsAdapter extends CursorRecyclerViewAdapter<ViewHolder> implements StickyHeaderDecoration.StickyHeaderAdapter<HeaderViewHolder> {
+  private static final String TAG = MediaDocumentsAdapter.class.getSimpleName();
 
   private final Calendar     calendar;
   private final Locale       locale;

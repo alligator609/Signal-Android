@@ -5,8 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.UiThread;
+import androidx.annotation.StringRes;
+import androidx.annotation.UiThread;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.R;

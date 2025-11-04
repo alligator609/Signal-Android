@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.preferences;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.support.v7.preference.ListPreference;
+import androidx.preference.ListPreference;
 
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
 import org.thoughtcrime.securesms.R;

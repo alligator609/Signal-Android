@@ -29,12 +29,12 @@ import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.NoConnectionReuseStrategyHC4;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
+import org.apache.http.impl.NoConnectionReuseStrategy;
 import org.apache.http.message.BasicHeader;
 import org.thoughtcrime.securesms.database.ApnDatabase;
 import org.thoughtcrime.securesms.util.ServiceUtil;
@@ -173,7 +173,7 @@ public abstract class LegacyMmsConnection {
     }
 
     return HttpClients.custom()
-                      .setConnectionReuseStrategy(new NoConnectionReuseStrategyHC4())
+                      .setConnectionReuseStrategy(new NoConnectionReuseStrategy())
                       .setRedirectStrategy(new LaxRedirectStrategy())
                       .setUserAgent(TextSecurePreferences.getMmsUserAgent(context, USER_AGENT))
                       .setConnectionManager(new BasicHttpClientConnectionManager())
@@ -209,18 +209,17 @@ public abstract class LegacyMmsConnection {
   }
 
   protected List<Header> getBaseHeaders() {
-    final String                number    = TelephonyUtil.getManager(context).getLine1Number(); ;
-
-    return new LinkedList<Header>() {{
-      add(new BasicHeader("Accept", "*/*, application/vnd.wap.mms-message, application/vnd.wap.sic"));
-      add(new BasicHeader("x-wap-profile", "http://www.google.com/oha/rdf/ua-profile-kila.xml"));
-      add(new BasicHeader("Content-Type", "application/vnd.wap.mms-message"));
-      add(new BasicHeader("x-carrier-magic", "http://magic.google.com"));
-      if (!TextUtils.isEmpty(number)) {
-        add(new BasicHeader("x-up-calling-line-id", number));
-        add(new BasicHeader("X-MDN", number));
-      }
-    }};
+    final String number = TelephonyUtil.getManager(context).getLine1Number();
+    List<Header> headers = new LinkedList<Header>();
+    headers.add(new BasicHeader("Accept", "*/*, application/vnd.wap.mms-message, application/vnd.wap.sic"));
+    headers.add(new BasicHeader("x-wap-profile", "http://www.google.com/oha/rdf/ua-profile-kila.xml"));
+    headers.add(new BasicHeader("Content-Type", "application/vnd.wap.mms-message"));
+    headers.add(new BasicHeader("x-carrier-magic", "http://magic.google.com"));
+    if (!TextUtils.isEmpty(number)) {
+        headers.add(new BasicHeader("x-up-calling-line-id", number));
+        headers.add(new BasicHeader("X-MDN", number));
+    }
+    return headers;
   }
 
   public static class Apn {

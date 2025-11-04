@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.v4.app.TaskStackBuilder;
+import androidx.core.app.TaskStackBuilder;
 import android.text.TextUtils;
 
 import org.thoughtcrime.securesms.ConversationActivity;

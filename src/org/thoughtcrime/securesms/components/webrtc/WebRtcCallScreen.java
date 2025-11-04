@@ -20,8 +20,8 @@ package org.thoughtcrime.securesms.components.webrtc;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewCompat;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.view.ViewCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -36,10 +36,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
 import org.thoughtcrime.securesms.service.WebRtcCallService;
@@ -292,7 +292,7 @@ public class WebRtcCallScreen extends FrameLayout implements RecipientModifiedLi
     this.recipient = recipient;
     this.recipient.addListener(this);
 
-    GlideApp.with(getContext().getApplicationContext())
+    Glide.with(getContext().getApplicationContext())
             .load(recipient.getContactPhoto())
             .fallback(recipient.getFallbackContactPhoto().asCallCard(getContext()))
             .error(recipient.getFallbackContactPhoto().asCallCard(getContext()))

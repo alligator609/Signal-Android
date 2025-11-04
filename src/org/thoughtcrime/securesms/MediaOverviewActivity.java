@@ -57,7 +57,7 @@ import org.thoughtcrime.securesms.database.MediaDatabase;
 import org.thoughtcrime.securesms.database.loaders.BucketedThreadMediaLoader;
 import org.thoughtcrime.securesms.database.loaders.BucketedThreadMediaLoader.BucketedThreadMedia;
 import org.thoughtcrime.securesms.database.loaders.ThreadMediaLoader;
-import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.AttachmentUtil;
@@ -234,7 +234,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity {
       this.gridManager  = new StickyHeaderGridLayoutManager(getResources().getInteger(R.integer.media_overview_cols));
 
       this.recyclerView.setAdapter(new MediaGalleryAdapter(getContext(),
-                                                           GlideApp.with(this),
+                                                           Glide.with(this),
                                                            new BucketedThreadMedia(getContext()),
                                                            locale,
                                                            this));

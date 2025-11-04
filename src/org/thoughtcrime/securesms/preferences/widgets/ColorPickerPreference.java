@@ -5,17 +5,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.TypedArrayUtils;
-import android.support.v7.preference.DialogPreference;
-import android.support.v7.preference.PreferenceViewHolder;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.TypedArrayUtils;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-
-import com.takisoft.colorpicker.ColorPickerDialog;
-import com.takisoft.colorpicker.ColorPickerDialog.Size;
-import com.takisoft.colorpicker.ColorStateDrawable;
 
 import org.thoughtcrime.securesms.R;
 
@@ -88,9 +85,12 @@ public class ColorPickerPreference extends DialogPreference {
       return;
     }
 
-    Drawable[] colorDrawable = new Drawable[]
-        {ContextCompat.getDrawable(getContext(), R.drawable.colorpickerpreference_pref_swatch)};
-    colorWidget.setImageDrawable(new ColorStateDrawable(colorDrawable, color));
+    Drawable swatch = ContextCompat.getDrawable(getContext(), R.drawable.colorpickerpreference_pref_swatch);
+    if (swatch != null) {
+      Drawable wrappedDrawable = DrawableCompat.wrap(swatch.mutate());
+      DrawableCompat.setTint(wrappedDrawable, color);
+      colorWidget.setImageDrawable(wrappedDrawable);
+    }
   }
 
   /**
@@ -196,28 +196,20 @@ public class ColorPickerPreference extends DialogPreference {
   }
 
   /**
-   * Returns the size of the color swatches in the dialog. It can be either
-   * {@link ColorPickerDialog#SIZE_SMALL} or {@link ColorPickerDialog#SIZE_LARGE}.
+   * Returns the size of the color swatches in the dialog.
    *
    * @return The size of the color swatches in the dialog.
-   * @see ColorPickerDialog#SIZE_SMALL
-   * @see ColorPickerDialog#SIZE_LARGE
    */
-  @Size
   public int getSize() {
     return size;
   }
 
   /**
-   * Sets the size of the color swatches in the dialog. It can be either
-   * {@link ColorPickerDialog#SIZE_SMALL} or {@link ColorPickerDialog#SIZE_LARGE}.
+   * Sets the size of the color swatches in the dialog.
    *
-   * @param size The size of the color swatches in the dialog. It can be either
-   *             {@link ColorPickerDialog#SIZE_SMALL} or {@link ColorPickerDialog#SIZE_LARGE}.
-   * @see ColorPickerDialog#SIZE_SMALL
-   * @see ColorPickerDialog#SIZE_LARGE
+   * @param size The size of the color swatches in the dialog.
    */
-  public void setSize(@Size int size) {
+  public void setSize(int size) {
     this.size = size;
   }
 

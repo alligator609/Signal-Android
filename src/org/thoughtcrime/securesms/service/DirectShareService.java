@@ -12,14 +12,14 @@ import android.os.Parcel;
 import android.service.chooser.ChooserTarget;
 import android.service.chooser.ChooserTargetService;
 import androidx.annotation.NonNull;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.ShareActivity;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.GlideApp;
+import com.bumptech.glide.Glide;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.BitmapUtil;
 
@@ -53,7 +53,7 @@ public class DirectShareService extends ChooserTargetService {
 
           if (recipient.getContactPhoto() != null) {
             try {
-              avatar = GlideApp.with(this)
+              avatar = Glide.with(this)
                                .asBitmap()
                                .load(recipient.getContactPhoto())
                                .circleCrop()

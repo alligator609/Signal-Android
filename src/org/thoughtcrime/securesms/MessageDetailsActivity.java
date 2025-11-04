@@ -47,8 +47,10 @@ import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.database.loaders.MessageDetailsLoader;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
-import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.mms.GlideRequests;
+//import org.thoughtcrime.securesms.mms.GlideApp;
+//import org.thoughtcrime.securesms.mms.GlideRequests;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientModifiedListener;
@@ -79,7 +81,7 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
   public final static String TYPE_EXTRA           = "type";
   public final static String ADDRESS_EXTRA        = "address";
 
-  private GlideRequests    glideRequests;
+  private RequestManager    glideRequests;
   private long             threadId;
   private boolean          isPushGroup;
   private ConversationItem conversationItem;
@@ -171,7 +173,7 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
 
     threadId          = getIntent().getLongExtra(THREAD_ID_EXTRA, -1);
     isPushGroup       = getIntent().getBooleanExtra(IS_PUSH_GROUP_EXTRA, false);
-    glideRequests     = GlideApp.with(this);
+    glideRequests     = Glide.with(this);
     itemParent        = header.findViewById(R.id.item_container);
     recipientsList    = findViewById(R.id.recipients_list);
     metadataContainer = header.findViewById(R.id.metadata_container);
